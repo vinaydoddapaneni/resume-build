@@ -95,7 +95,7 @@ export const Header = () => {
             </div>
             
             {/* Mobile Navigation */}
-            <div className="md:hidden flex space-x-2">
+            <div className="md:hidden flex items-center space-x-2">
               {mobileNavItems.map((item) => (
                 <button
                   key={item.id}
@@ -106,19 +106,19 @@ export const Header = () => {
                   {item.label}
                 </button>
               ))}
+              <button 
+                type="button"
+                className="md:hidden focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1"
+                aria-label="Toggle mobile menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
             </div>
-          <button 
-            type="button"
-            className="md:hidden focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-            aria-label="Toggle mobile menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </nav>
-    </header>
+          </div>
+        </nav>
+      </header>
     {showLogin && <LoginPopup onClose={toggleLogin} onSwitchToRegister={switchToRegister} />}
     {showRegister && <RegisterPopup onClose={toggleRegister} onSwitchToLogin={switchToLogin} />}
     </>

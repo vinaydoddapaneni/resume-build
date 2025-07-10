@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react';
+import styled from 'styled-components';
+import { Input, Label, Checkbox as StyledCheckbox, CheckboxLabel as StyledCheckboxLabel } from '../styles/styles';
 
 type FormFieldProps = {
   id: string;
@@ -15,6 +17,25 @@ type FormFieldProps = {
   checkboxLabel?: React.ReactNode;
 };
 
+const FormFieldContainer = styled.div<{ isCheckbox?: boolean }>`
+  ${({ isCheckbox }) => isCheckbox && 'display: flex; align-items: flex-start;'}
+`;
+
+const FieldContainer = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const RequiredIndicator = styled.span`
+  color: #ef4444;
+  margin-left: 0.25rem;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
 export const FormField: React.FC<FormFieldProps> = ({
   id,
   name,
@@ -30,52 +51,50 @@ export const FormField: React.FC<FormFieldProps> = ({
   checkboxLabel,
 }) => {
   const isCheckbox = type === 'checkbox';
-  const baseClasses = 'w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent';
   
   return (
-    <div className={isCheckbox ? 'flex items-start' : ''}>
+    <FormFieldContainer isCheckbox={isCheckbox}>
       {!isCheckbox ? (
-        <div>
-          <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        <FieldContainer>
+          <Label htmlFor={id}>
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
-          </label>
-          <input
+            {required && <RequiredIndicator>*</RequiredIndicator>}
+          </Label>
+          <Input
             id={id}
             name={name}
             type={type}
             value={value as string}
             onChange={onChange}
-            className={`${baseClasses} ${className}`}
             placeholder={placeholder}
             required={required}
             autoComplete={autoComplete}
             minLength={minLength}
             aria-label={label}
+            className={className}
           />
-        </div>
+        </FieldContainer>
       ) : (
-        <div className="flex items-center h-5">
-          <input
+        <CheckboxContainer>
+          <StyledCheckbox
             id={id}
             name={name}
             type="checkbox"
             checked={value as boolean}
             onChange={onChange}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             required={required}
             aria-label={label}
           />
-          <label htmlFor={id} className="ml-3 text-sm">
-            <span className="text-gray-700">{label} </span>
+          <StyledCheckboxLabel htmlFor={id}>
+            <span>{label} </span>
             {checkboxLabel && (
-              <span className="text-gray-700">
+              <span>
                 {checkboxLabel}
               </span>
             )}
-          </label>
-        </div>
+          </StyledCheckboxLabel>
+        </CheckboxContainer>
       )}
-    </div>
+    </FormFieldContainer>
   );
 };

@@ -1,56 +1,129 @@
 import React from 'react';
+import styled from 'styled-components';
+import { PrimaryButton } from '../styles/styles';
+import { Section, Container, SectionTitle, SectionSubtitle } from '../styles/styles';
 
-export const CVBuilderSection = () => {
+const features = [
+  'Professional templates designed by experts',
+  'Guided writing with helpful tips',
+  'Download in multiple formats (PDF, DOCX)'
+];
+
+const CheckIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 6L9 17l-5-5" />
+  </svg>
+);
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  margin-bottom: 2rem;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+    margin-bottom: 0;
+    padding-right: 1.5rem;
+  }
+`;
+
+const ContentContainer = styled.div`
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+    padding-left: 1.5rem;
+  }
+`;
+
+const FeatureList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const FeatureItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  color: #334155;
+`;
+
+const FeatureIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+  color: #3b82f6;
+  flex-shrink: 0;
+`;
+
+export const CVBuilderSection: React.FC = () => {
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Easy-to-use CV Builder</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+    <Section style={{ backgroundColor: '#f9fafb' }}>
+      <Container>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <SectionTitle>Easy-to-use CV Builder</SectionTitle>
+          <SectionSubtitle>
             Create a professional CV in minutes with our step-by-step builder
-          </p>
+          </SectionSubtitle>
         </div>
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-8 md:mb-0">
+        
+        <ContentWrapper>
+          <ImageContainer>
             <img 
               src="https://via.placeholder.com/500x300" 
               alt="CV Builder Interface" 
-              className="rounded-lg shadow-md w-full max-w-md mx-auto"
+              style={{ 
+                width: '100%', 
+                height: 'auto', 
+                borderRadius: '0.5rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+              }} 
             />
-          </div>
-          <div className="md:w-1/2 md:pl-12">
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <div className="bg-blue-100 p-2 rounded-full mr-4">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-lg">Professional templates designed by experts</span>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-blue-100 p-2 rounded-full mr-4">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-lg">Guided writing with helpful tips</span>
-              </li>
-              <li className="flex items-start">
-                <div className="bg-blue-100 p-2 rounded-full mr-4">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <span className="text-lg">Download in multiple formats (PDF, DOCX)</span>
-              </li>
-            </ul>
-            <button className="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300">
-              Build My CV
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+          </ImageContainer>
+          
+          <ContentContainer>
+            <FeatureList>
+              {features.map((feature, index) => (
+                <FeatureItem key={index}>
+                  <FeatureIcon>
+                    <CheckIcon />
+                  </FeatureIcon>
+                  <span>{feature}</span>
+                </FeatureItem>
+              ))}
+            </FeatureList>
+            
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <PrimaryButton>
+                Build My CV
+              </PrimaryButton>
+            </div>
+          </ContentContainer>
+        </ContentWrapper>
+      </Container>
+    </Section>
   );
 };
